@@ -23,8 +23,8 @@ public class OrderManageService {
 
     public void reserve(Order order) {
         Customer customer = repository.findById(order.getCustomerId()).orElseThrow();
-        LOG.info("Found: {}", customer);
-        if (order.getPrice() < customer.getAmountAvailable()) {
+        if (order.getPrice() <= customer.getAmountAvailable() && customer.getAmountAvailable() - order.getPrice() >= 0) {
+            LOG.warn("Reserving money for : {}", customer);
             order.setStatus("ACCEPT");
             customer.setAmountReserved(customer.getAmountReserved() + order.getPrice());
             customer.setAmountAvailable(customer.getAmountAvailable() - order.getPrice());
@@ -39,14 +39,15 @@ public class OrderManageService {
 
     public void confirm(Order order) {
         Customer customer = repository.findById(order.getCustomerId()).orElseThrow();
-        LOG.info("Found: {}", customer);
         if (order.getStatus().equals("CONFIRMED")) {
             customer.setAmountReserved(customer.getAmountReserved() - order.getPrice());
             repository.save(customer);
+            LOG.warn("Payment confirmed for customer: {}...", customer);
         } else if (order.getStatus().equals("ROLLBACK") && !order.getSource().equals(SOURCE)) {
             customer.setAmountReserved(customer.getAmountReserved() - order.getPrice());
             customer.setAmountAvailable(customer.getAmountAvailable() + order.getPrice());
             repository.save(customer);
+            LOG.warn("Payment rolled back for customer: {}", customer);
         }
 
     }

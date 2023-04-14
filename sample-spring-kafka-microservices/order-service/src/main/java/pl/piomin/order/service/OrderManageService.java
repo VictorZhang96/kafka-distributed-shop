@@ -17,16 +17,27 @@ public class OrderManageService {
         if (orderPayment.getStatus().equals("ACCEPT") &&
                 orderStock.getStatus().equals("ACCEPT")) {
             o.setStatus("CONFIRMED");
-        } else if (orderPayment.getStatus().equals("REJECT") &&
-                orderStock.getStatus().equals("REJECT")) {
+        } else if (orderPayment.getStatus().equals("REJECT")){
+                o.setStatus("REJECTED");
+                o.setSource("PAYMENT");
+        } else {
             o.setStatus("REJECTED");
-        } else if (orderPayment.getStatus().equals("REJECT") ||
-                orderStock.getStatus().equals("REJECT")) {
-            String source = orderPayment.getStatus().equals("REJECT")
-                    ? "PAYMENT" : "STOCK";
-            o.setStatus("ROLLBACK");
-            o.setSource(source);
+            o.setSource("STOCK");
         }
+
+
+        // will cause bug when amout available <= 0
+//        else if (orderPayment.getStatus().equals("REJECT") &&
+//                orderStock.getStatus().equals("REJECT")) {
+//            o.setStatus("REJECTED");
+//        }
+//        else if (orderPayment.getStatus().equals("REJECT") ||
+//                orderStock.getStatus().equals("REJECT")) {
+//            String source = orderPayment.getStatus().equals("REJECT")
+//                    ? "PAYMENT" : "STOCK";
+//            o.setStatus("ROLLBACK");
+//            o.setSource(source);
+//        }
         return o;
     }
 

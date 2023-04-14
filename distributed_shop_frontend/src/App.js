@@ -7,13 +7,13 @@ function App() {
   const items = [
     {
       id: 1,
-      title: "Card 1",
+      title: "Book",
       description: "This is the first card.",
       price: 10,
     },
     {
       id: 2,
-      title: "Card 2",
+      title: "Bike",
       description: "This is the second card.",
       price: 20,
     },
@@ -39,6 +39,9 @@ function App() {
   return (
     <div className="container">
       <div className="row">
+        <h1 style={{fontSize: '80px', textAlign: 'center', margin: '30px 0'}}>Kafka Shop</h1>
+        {/* <h1 style="font-size: 36px; text-align: center;">Your heading text here</h1> */}
+        
         {items.map((card) => (
           <div className="col-md-4" key={card.id}>
             <Card style={{ width: "18rem" }}>
