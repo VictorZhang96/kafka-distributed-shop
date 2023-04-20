@@ -1,7 +1,6 @@
 package pl.piomin.payment;
 
 import jakarta.annotation.PostConstruct;
-import net.datafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import pl.piomin.payment.domain.Customer;
 import pl.piomin.payment.repository.CustomerRepository;
 import pl.piomin.payment.service.OrderManageService;
 
-import java.util.Random;
+import java.util.Collections;
 
 @SpringBootApplication
 @EnableKafka
@@ -23,7 +22,9 @@ public class PaymentApp {
     private static final Logger LOG = LoggerFactory.getLogger(PaymentApp.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(PaymentApp.class, args);
+        SpringApplication app = new SpringApplication(PaymentApp.class);
+        app.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
+        app.run(args);
     }
 
     @Autowired

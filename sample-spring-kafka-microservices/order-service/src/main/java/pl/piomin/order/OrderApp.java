@@ -21,9 +21,7 @@ import pl.piomin.base.domain.Order;
 import pl.piomin.order.service.OrderManageService;
 
 import java.time.Duration;
-import java.util.Random;
 import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicLong;
 
 @SpringBootApplication
 @EnableKafkaStreams
