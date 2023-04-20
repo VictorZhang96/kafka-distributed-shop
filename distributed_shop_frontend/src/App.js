@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button } from "react-bootstrap";
 
 function App() {
-  
+  const [data, setData] = useState(null);
   const items = [
     {
       id: 1,
@@ -36,6 +36,20 @@ function App() {
       });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const url = `http://localhost:8080/orders`;
+      try {
+        const response = await axios.get(url);
+        setData(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="container">
       <div className="row">
@@ -54,6 +68,8 @@ function App() {
             </Card>
           </div>
         ))}
+
+
       </div>
     </div>
   );

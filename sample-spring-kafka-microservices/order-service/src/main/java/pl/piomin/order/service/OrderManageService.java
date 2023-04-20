@@ -25,19 +25,6 @@ public class OrderManageService {
             o.setSource("STOCK");
         }
 
-
-        // will cause bug when amout available <= 0
-//        else if (orderPayment.getStatus().equals("REJECT") &&
-//                orderStock.getStatus().equals("REJECT")) {
-//            o.setStatus("REJECTED");
-//        }
-//        else if (orderPayment.getStatus().equals("REJECT") ||
-//                orderStock.getStatus().equals("REJECT")) {
-//            String source = orderPayment.getStatus().equals("REJECT")
-//                    ? "PAYMENT" : "STOCK";
-//            o.setStatus("ROLLBACK");
-//            o.setSource(source);
-//        }
         return o;
     }
 

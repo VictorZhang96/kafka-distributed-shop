@@ -50,6 +50,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<Order> all() {
         List<Order> orders = new ArrayList<>();
         ReadOnlyKeyValueStore<Long, Order> store = kafkaStreamsFactory
