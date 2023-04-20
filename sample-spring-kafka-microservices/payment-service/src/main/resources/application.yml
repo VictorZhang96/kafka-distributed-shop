@@ -1,6 +1,9 @@
 spring.application.name: payment
+# define payment app server port
 server:
   port: 8083
+
+# define kafka properties
 spring.kafka:
   bootstrap-servers: 127.0.0.1:51106
   consumer:

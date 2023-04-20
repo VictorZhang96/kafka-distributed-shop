@@ -1,4 +1,9 @@
 spring.application.name: stock
+# define payment app server port
+server:
+  port: 8085
+
+# define kafka properties
 spring.kafka:
   bootstrap-servers: 127.0.0.1:51106
   consumer:
@@ -11,5 +16,3 @@ spring.kafka:
     value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 spring.output.ansi.enabled: ALWAYS
-
-logging.pattern.console: "%clr(%d{HH:mm:ss.SSS}){blue} %clr(---){faint} %clr([%15.15t]){yellow} %clr(:){red} %clr(%m){faint}%n"
