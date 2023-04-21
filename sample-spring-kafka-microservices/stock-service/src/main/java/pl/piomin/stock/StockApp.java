@@ -42,7 +42,7 @@ public class StockApp {
 
     @PostConstruct
     public void generateData() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 20; i++) {
             int count = 100;
             Product p = new Product(null, "Product" + i, count, 0);
             repository.save(p);

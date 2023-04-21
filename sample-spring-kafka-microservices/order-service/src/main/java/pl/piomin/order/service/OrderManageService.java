@@ -3,17 +3,10 @@ package pl.piomin.order.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.piomin.base.domain.Order;
-import pl.piomin.order.repository.OrderRepository;
 
 @Service
 public class OrderManageService {
 
-//    @Autowired
-//    private OrderRepository repository;
-//
-//    public OrderManageService(OrderRepository repository) {
-//        this.repository = repository;
-//    }
 
     public Order confirm(Order orderPayment, Order orderStock) {
         Order o = new Order(orderPayment.getId(),

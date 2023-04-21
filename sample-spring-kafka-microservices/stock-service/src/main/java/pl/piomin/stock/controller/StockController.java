@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.piomin.stock.domain.Product;
 import pl.piomin.stock.repository.ProductRepository;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/stock")
 public class StockController {
@@ -15,8 +17,14 @@ public class StockController {
 
     @GetMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Product all(@PathVariable Long id) {
+    public Product getProductById(@PathVariable Long id) {
         Product product = repository.findById(id).orElseThrow();
         return product;
+    }
+
+    @GetMapping("/")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public Iterable<Product> getAllProduct() {
+        return repository.findAll();
     }
 }
