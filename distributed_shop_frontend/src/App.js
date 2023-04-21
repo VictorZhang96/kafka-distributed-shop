@@ -12,6 +12,7 @@ function randomGateway() {
 
 function App() {
   const [data, setData] = useState(null);
+  const [stockData, setStockData] = useState(null);
 
 
   const items = [
@@ -20,6 +21,7 @@ function App() {
       title: "Book",
       description: "This is the first card.",
       price: 10,
+      stock: stockData ? stockData[0].availableItems : null,
     },
     {
       id: 2,
@@ -36,7 +38,7 @@ function App() {
       "customerId": 10,
       "productId": item.id,
       "productCount": 1,
-      "price": item.price,
+      "price": item.id,
       "status": "NEW"
     };
     axios.post(`http://localhost:${port}/orders`, data)
@@ -50,7 +52,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `http://localhost:8080/orders`;
+      const url = `http://localhost:8083/users/10`;
       try {
         const response = await axios.get(url);
         setData(response.data);
@@ -62,27 +64,40 @@ function App() {
     fetchData();
   }, []);
 
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      const url = `http://localhost:8085/stock/`;
+      try {
+        const response = await axios.get(url);
+        setStockData(response.data);
+        console.log("get stock data: ", response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="container">
       <div className="row">
-        <h1 style={{fontSize: '80px', textAlign: 'center', margin: '30px 0'}}>Kafka Shop</h1>
-        {/* <h1 style="font-size: 36px; text-align: center;">Your heading text here</h1> */}
-        
-        {items.map((card) => (
+        <h1 style={{fontSize: '80px', textAlign: 'center', margin: '30px 0'}}>Distributed Shop</h1>
+        <h1> Name: {data ? data.name : "loading"}</h1>
+        <h1> Balance: {data ? data.amountAvailable :  "loading"}</h1>
+
+        {stockData ? stockData.map((card) => (
           <div className="col-md-4" key={card.id}>
-            <Card style={{ width: "18rem" }}>
+            <Card style={{ width: "18rem", margin: "30px 0"}}>
               <Card.Body>
-                <Card.Title>{card.title}</Card.Title>
+                <Card.Title>{card.name}</Card.Title>
                 <Card.Text>{card.description}</Card.Text>
-                <Card.Text>Price: ${card.price}</Card.Text>
+                <Card.Text>Price: ${card.id}</Card.Text>
+                <Card.Text>In stock: {card.availableItems}</Card.Text>
                 <Button onClick={() => handleBuy(card)}>Buy</Button>
               </Card.Body>
             </Card>
           </div>
-        ))}
-
+        )) : null}
 
       </div>
     </div>
