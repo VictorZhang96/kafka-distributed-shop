@@ -2,8 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button } from "react-bootstrap";
 
+function randomGateway() {
+  const serverNumber = 1;
+  const randomInt = Math.floor(Math.random() * serverNumber) + 1;
+  const serverPortList = [8080, 8081, 8082];
+  return serverPortList[randomInt - 1];
+
+}
+
 function App() {
   const [data, setData] = useState(null);
+
+
   const items = [
     {
       id: 1,
@@ -20,6 +30,8 @@ function App() {
   ]
 
   const handleBuy = (item) => {
+    const port = randomGateway();
+    console.log("sending request to server: ", port)
     const data = {
       "customerId": 10,
       "productId": item.id,
@@ -27,7 +39,7 @@ function App() {
       "price": item.price,
       "status": "NEW"
     };
-    axios.post("http://localhost:8080/orders", data)
+    axios.post(`http://localhost:${port}/orders`, data)
       .then((response) => {
         console.log(response.data);
       })
@@ -49,6 +61,8 @@ function App() {
     };
     fetchData();
   }, []);
+
+  
 
   return (
     <div className="container">

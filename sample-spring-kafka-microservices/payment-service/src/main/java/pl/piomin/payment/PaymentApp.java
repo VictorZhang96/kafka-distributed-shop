@@ -23,7 +23,6 @@ public class PaymentApp {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(PaymentApp.class);
-        app.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
         app.run(args);
     }
 

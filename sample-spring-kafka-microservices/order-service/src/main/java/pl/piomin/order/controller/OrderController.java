@@ -10,7 +10,6 @@ import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import pl.piomin.base.domain.Order;
-import pl.piomin.order.service.OrderGeneratorService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +23,11 @@ public class OrderController {
     private AtomicLong id = new AtomicLong();
     private KafkaTemplate<Long, Order> template;
     private StreamsBuilderFactoryBean kafkaStreamsFactory;
-    private OrderGeneratorService orderGeneratorService;
 
     public OrderController(KafkaTemplate<Long, Order> template,
-                           StreamsBuilderFactoryBean kafkaStreamsFactory,
-                           OrderGeneratorService orderGeneratorService) {
+                           StreamsBuilderFactoryBean kafkaStreamsFactory) {
         this.template = template;
         this.kafkaStreamsFactory = kafkaStreamsFactory;
-        this.orderGeneratorService = orderGeneratorService;
     }
 
     @PostMapping
@@ -41,12 +37,6 @@ public class OrderController {
         template.send("orders", order.getId(), order);
         LOG.info("Sent: {}", order);
         return order;
-    }
-
-    @PostMapping("/generate")
-    public boolean create() {
-        orderGeneratorService.generate();
-        return true;
     }
 
     @GetMapping
