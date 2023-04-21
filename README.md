@@ -23,11 +23,8 @@ it will print the address for your Kafka node
 
 It is : ```51106``` in my case
 
-![image-20230419224706236](/Users/huang/Library/Application Support/typora-user-images/image-20230419224706236.png)
+4. modify the `spring.kafka.bootstrap-servers` properties in `application.yml` for **all 3 app**. Replace them with your Kafka node port
 
-4. modify the `spring.kafka.bootstrap-servers` properties in `application.yml` for **all 3 app**.
-
-![image-20230419224833743](/Users/huang/Library/Application Support/typora-user-images/image-20230419224833743.png)
 
 5. Then, run order app, stock app and payment app. 
 
