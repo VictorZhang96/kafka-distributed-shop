@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @EmbeddedKafka(topics = {"orders"},
         partitions = 1,
         bootstrapServersProperty = "spring.kafka.bootstrap-servers")
-public class OrderControllerTests {
+public class OrderTest {
 
     @Autowired
     TestRestTemplate restTemplate;
@@ -42,6 +42,5 @@ public class OrderControllerTests {
         ConsumerRecord<Long, Order> rec = template.receive("orders", 0, 0, Duration.ofSeconds(5));
         assertNotNull(rec);
         assertNotNull(rec.value());
-//        assertEquals(1, rec.value().getId());
     }
 }
