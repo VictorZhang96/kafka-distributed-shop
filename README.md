@@ -2,7 +2,7 @@
 
 This project implement distributed transaction with Kafka and springboot on the senario of e shopping.  
 
-![image-20230426172646180](./Kafka-Distributed-Shop/assets/image-20230426172646180.png)
+![image-20230426172646180](./assets/image-20230426172646180.png)
 
 ### Run
 
@@ -25,11 +25,11 @@ it will print the address for your Kafka node
 
 It is : ```51106``` in my case
 
-![image-20230419224706236](./Kafka-Distributed-Shop/assets/image-20230419224706236.png)
+![image-20230419224706236](./assets/image-20230419224706236.png)
 
 4. modify the `spring.kafka.bootstrap-servers` properties in `application.yml` for **all 3 app**.
 
-![image-20230419224833743](./Kafka-Distributed-Shop/assets/image-20230419224833743.png)
+![image-20230419224833743](./assets/image-20230419224833743.png)
 
 5. Then, run order app, stock app and payment app. 
 
