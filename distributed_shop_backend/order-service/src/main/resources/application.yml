@@ -1,0 +1,19 @@
+spring.application.name: orders
+# define payment app server port
+server:
+  port: 8080
+
+# define kafka properties
+spring.kafka:
+  bootstrap-servers: 127.0.0.1:51106
+  producer:
+    key-serializer: org.apache.kafka.common.serialization.LongSerializer
+    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  streams:
+    properties:
+      default.key.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
+      default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+      spring.json.trusted.packages: "*"
+    state-dir: /tmp/kafka-streams/2
+
+spring.output.ansi.enabled: ALWAYS
